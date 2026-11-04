@@ -108,6 +108,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PlacementScreen())),
           ),
           ListTile(
+            leading: const Icon(Icons.lock_open, color: Colors.indigo),
+            title: const Text('Buka Semua Tingkat (Mode Demo)'),
+            subtitle: const Text('Membuka Tingkat 1–8 untuk demonstrasi'),
+            onTap: () async {
+              Data.aturLevelAwal(8);
+              await _ubah();
+              if (!context.mounted) return;
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Semua tingkat (1-8) berhasil dibuka!')),
+              );
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.delete, color: Colors.red),
             title: const Text('Hapus Progres', style: TextStyle(color: Colors.red)),
             onTap: _hapusProgres,
