@@ -145,7 +145,7 @@ class _LabirinSpasialGameState extends State<LabirinSpasialGame> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: p == _pemain
-          ? Text(Data.avatar.isNotEmpty ? Data.avatar : '🧒', style: const TextStyle(fontSize: 22))
+          ? bangunAvatarWidget(Data.avatar, ukuran: 24)
           : (huruf != null
               ? Text(
                   huruf,
@@ -200,7 +200,7 @@ class _LabirinSpasialGameState extends State<LabirinSpasialGame> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('Ronde Labirin:', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                Text('${_ronde + 1} / 5 🧭', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: warnaUtama)),
+                Text('${_ronde + 1} / 5', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: warnaUtama)),
               ],
             ),
           ),

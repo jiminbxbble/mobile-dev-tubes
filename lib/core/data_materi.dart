@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 // ===============================================
 // DATA MATERI (isi soal untuk tiap level)
 // Diambil dari PRD Lampiran A.
@@ -8,21 +10,21 @@ class InfoLevel {
   final int nomor;
   final String namaLevel;
   final String namaGame;
-  final String ikon; // emoji sebagai pengganti gambar
+  final IconData ikon; // Ikon visual resmi Flutter
   final int warna; // warna aksen (kode hex)
 
   const InfoLevel(this.nomor, this.namaLevel, this.namaGame, this.ikon, this.warna);
 }
 
 const List<InfoLevel> daftarLevel = [
-  InfoLevel(1, 'Vokal Tunggal', 'Latihan Bertahap', '🔤', 0xFF7C3AED), // Ungu Duolingo Core
-  InfoLevel(2, 'Suku Kata Tunggal', 'Petualangan Huruf', '🃏', 0xFF10B981), // Emerald Mint
-  InfoLevel(3, 'Suku Kata Kompleks', 'Tracer Kinestik', '✍️', 0xFFF59E0B), // Amber Gold
-  InfoLevel(4, 'Digraf & Diftong', 'Bicara AI', '🎤', 0xFFF43F5E), // Coral Rose
-  InfoLevel(5, 'Kata Dasar', 'Labirin Spasial', '🧭', 0xFF06B6D4), // Electric Cyan
-  InfoLevel(6, 'Suku Kata Blending', 'Letuskan Balon', '🎈', 0xFF9333EA), // Purple Violet
-  InfoLevel(7, 'Diskriminasi Visual', 'Sight Word Shield', '🛡️', 0xFF0D9488), // Teal Shield
-  InfoLevel(8, 'Morfologi Kata', 'Morpheme Bridge', '🌉', 0xFF4F46E5), // Indigo Blue
+  InfoLevel(1, 'Vokal Tunggal', 'Latihan Bertahap', Icons.record_voice_over_rounded, 0xFF7C3AED), // Ungu Duolingo Core
+  InfoLevel(2, 'Suku Kata Tunggal', 'Petualangan Huruf', Icons.style_rounded, 0xFF10B981), // Emerald Mint
+  InfoLevel(3, 'Suku Kata Kompleks', 'Tracer Kinestik', Icons.draw_rounded, 0xFFF59E0B), // Amber Gold
+  InfoLevel(4, 'Digraf & Diftong', 'Bicara AI', Icons.mic_rounded, 0xFFF43F5E), // Coral Rose
+  InfoLevel(5, 'Kata Dasar', 'Labirin Spasial', Icons.explore_rounded, 0xFF06B6D4), // Electric Cyan
+  InfoLevel(6, 'Suku Kata Blending', 'Letuskan Balon', Icons.bubble_chart_rounded, 0xFF9333EA), // Purple Violet
+  InfoLevel(7, 'Diskriminasi Visual', 'Sight Word Shield', Icons.shield_rounded, 0xFF0D9488), // Teal Shield
+  InfoLevel(8, 'Morfologi Kata', 'Morpheme Bridge', Icons.account_tree_rounded, 0xFF4F46E5), // Indigo Blue
 ];
 
 // Pool materi per level

@@ -187,7 +187,7 @@ class _SightWordShieldGameState extends State<SightWordShieldGame> {
                 Row(
                   children: [
                     const Text('Skor: ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                    Text('$_skor / 5 🛡️', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: warnaUtama)),
+                    Text('$_skor / 5', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: warnaUtama)),
                   ],
                 ),
                 Row(
@@ -250,7 +250,7 @@ class _SightWordShieldGameState extends State<SightWordShieldGame> {
                           opacity: 0.15,
                           child: GridView.count(
                             crossAxisCount: 6,
-                            children: List.generate(24, (i) => const Center(child: Text('✦', style: TextStyle(color: Colors.white, fontSize: 14)))),
+                            children: List.generate(24, (i) => const Center(child: Icon(Icons.star_rounded, color: Colors.white, size: 10))),
                           ),
                         ),
                       ),

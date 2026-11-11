@@ -27,21 +27,21 @@ const List<DataMaskot> daftarMaskot = [
   DataMaskot(
     id: 'leko',
     nama: 'Leko',
-    sifat: 'Cerdas 🦉',
+    sifat: 'Cerdas (Fonem)',
     pathGambar: 'assets/images/avatar_leko.jpg',
     warna: Color(0xFF7C3AED),
   ),
   DataMaskot(
     id: 'milo',
     nama: 'Milo',
-    sifat: 'Ceria 🐱',
+    sifat: 'Ceria (Tantangan)',
     pathGambar: 'assets/images/avatar_milo.jpg',
     warna: Color(0xFFF59E0B),
   ),
   DataMaskot(
     id: 'kiko',
     nama: 'Kiko',
-    sifat: 'Sabar 🐼',
+    sifat: 'Sabar (Latihan)',
     pathGambar: 'assets/images/avatar_kiko.jpg',
     warna: Color(0xFF10B981),
   ),
@@ -113,7 +113,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Selamat Datang di DyLeks! ✨',
+                'Selamat Datang di DyLeks!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24,
@@ -185,7 +185,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
               // Pilih Karakter Maskot 3D Nano Banana
               const Text(
-                'Pilih Sahabat Belajarmu 🐾',
+                'Pilih Sahabat Belajarmu',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF1E1B2E)),
               ),
@@ -276,7 +276,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
               // Tombol Mulai Petualangan
               TombolBesar(
-                teks: 'MULAI PETUALANGAN! 🚀',
+                teks: 'MULAI PETUALANGAN!',
                 warna: const Color(0xFF7C3AED),
                 onTekan: namaKosong ? null : _lanjut,
               ),

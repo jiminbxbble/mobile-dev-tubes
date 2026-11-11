@@ -125,7 +125,7 @@ class _LetuskanBalonGameState extends State<LetuskanBalonGame> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('Kata Disusun:', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                Text('${_kataKe + 1} / 5 🎈', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: warnaUtama)),
+                Text('${_kataKe + 1} / 5', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: warnaUtama)),
               ],
             ),
           ),

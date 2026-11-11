@@ -35,7 +35,7 @@ class _StageMapScreenState extends State<StageMapScreen> {
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           backgroundColor: const Color(0xFF1E1B2E),
-          content: Text('Tahap $tahap masih terkunci. Selesaikan tahap sebelumnya dulu ya! 🔒',
+          content: Text('Tahap $tahap masih terkunci. Selesaikan tahap sebelumnya dulu ya!',
               style: const TextStyle(fontSize: 16)),
         ),
       );
@@ -65,9 +65,16 @@ class _StageMapScreenState extends State<StageMapScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              '${_info.ikon} Tahap $tahap',
-              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF1E1B2E)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(_info.ikon, color: warnaGame, size: 30),
+                const SizedBox(width: 10),
+                Text(
+                  'Tahap $tahap',
+                  style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF1E1B2E)),
+                ),
+              ],
             ),
             const SizedBox(height: 6),
             Text(
@@ -79,7 +86,8 @@ class _StageMapScreenState extends State<StageMapScreen> {
             ),
             const SizedBox(height: 24),
             Tombol3D(
-              teks: status == 'selesai' ? 'ULANGI TAHAP $tahap' : 'MULAI TAHAP $tahap 🚀',
+              teks: status == 'selesai' ? 'ULANGI TAHAP $tahap' : 'MULAI TAHAP $tahap',
+              ikon: status == 'selesai' ? Icons.replay_rounded : Icons.play_arrow_rounded,
               warna: warnaGame,
               onTekan: () {
                 Navigator.pop(c);
@@ -128,7 +136,7 @@ class _StageMapScreenState extends State<StageMapScreen> {
       pesan.add('+$xpDasar XP Selesai');
       if (hasil.salah == 0 && !hasil.dibantu) {
         Data.xp += 5;
-        pesan.add('⭐ Sempurna! +5 Bonus XP');
+        pesan.add('Sempurna! +5 Bonus XP');
       }
 
       // Progres tahap & naik level
@@ -144,18 +152,18 @@ class _StageMapScreenState extends State<StageMapScreen> {
 
       // Lencana: selesai tahap 1 di game ini
       if (tahap == 1 && Data.bukaLencana('level${widget.level}')) {
-        pesan.add('🏅 Lencana Baru Terbuka!');
+        pesan.add('Lencana Baru Terbuka!');
       }
       final streakLama = Data.streak;
       Data.tambahStreak();
       if (Data.streak > streakLama) {
-        pesan.add('🔥 Streak Bertambah Menjadi ${Data.streak} Hari!');
+        pesan.add('Streak Bertambah Menjadi ${Data.streak} Hari!');
       }
       Data.gagalBeruntun[kunci] = 0;
     } else {
       // Gagal tapi main sampai akhir -> XP usaha
       Data.xp += 2;
-      pesan.add('+2 XP Semangat Usaha! 💪');
+      pesan.add('+2 XP Semangat Usaha!');
       Data.gagalBeruntun[kunci] = (Data.gagalBeruntun[kunci] ?? 0) + 1;
     }
 
@@ -170,7 +178,11 @@ class _StageMapScreenState extends State<StageMapScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         title: Row(
           children: [
-            Text(hasil.menang ? '🎉' : '💪', style: const TextStyle(fontSize: 32)),
+            Icon(
+              hasil.menang ? Icons.emoji_events_rounded : Icons.auto_awesome_rounded,
+              color: hasil.menang ? const Color(0xFFF59E0B) : const Color(0xFF7C3AED),
+              size: 32,
+            ),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
@@ -217,7 +229,7 @@ class _StageMapScreenState extends State<StageMapScreen> {
                 ),
                 child: Row(
                   children: [
-                    const Text('🚀', style: TextStyle(fontSize: 28)),
+                    const Icon(Icons.rocket_launch_rounded, color: Color(0xFF7C3AED), size: 28),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -234,7 +246,8 @@ class _StageMapScreenState extends State<StageMapScreen> {
         ),
         actions: [
           Tombol3D(
-            teks: 'LANJUT! ✨',
+            teks: 'LANJUTKAN',
+            ikon: Icons.arrow_forward_rounded,
             warna: const Color(0xFF10B981),
             onTekan: () => Navigator.pop(c),
           ),
@@ -262,7 +275,7 @@ class _StageMapScreenState extends State<StageMapScreen> {
             padding: const EdgeInsets.only(right: 16),
             child: Row(
               children: [
-                KapsulStat(ikon: '⭐', label: '${Data.xp}', warnaAksen: const Color(0xFFF59E0B)),
+                KapsulStat(ikon: Icons.star_rounded, label: '${Data.xp}', warnaAksen: const Color(0xFFF59E0B)),
               ],
             ),
           ),
@@ -287,7 +300,14 @@ class _StageMapScreenState extends State<StageMapScreen> {
             ),
             child: Row(
               children: [
-                Text(_info.ikon, style: const TextStyle(fontSize: 40)),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(_info.ikon, color: Colors.white, size: 32),
+                ),
                 const SizedBox(width: 14),
                 Expanded(
                   child: Column(
@@ -327,7 +347,7 @@ class _StageMapScreenState extends State<StageMapScreen> {
                   child: Center(
                     child: BatuLoncatan3D(
                       nomor: tahap,
-                      ikon: '$tahap',
+                      ikonData: _info.ikon,
                       status: status,
                       warna: warnaGame,
                       onTekan: () => _pilihTahap(tahap),

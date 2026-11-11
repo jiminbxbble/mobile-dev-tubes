@@ -96,7 +96,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         title: const Row(
           children: [
-            Text('🏆', style: TextStyle(fontSize: 32)),
+            Icon(Icons.emoji_events_rounded, color: Color(0xFFF59E0B), size: 30),
             SizedBox(width: 8),
             Text('Hasil Tes Penempatan', style: TextStyle(fontWeight: FontWeight.bold)),
           ],
@@ -110,7 +110,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
                 color: const Color(0xFF7C3AED).withValues(alpha: 0.12),
                 shape: BoxShape.circle,
               ),
-              child: const Text('✨', style: TextStyle(fontSize: 40)),
+              child: const Icon(Icons.auto_awesome_rounded, color: Color(0xFF7C3AED), size: 40),
             ),
             const SizedBox(height: 14),
             Text(
@@ -133,7 +133,8 @@ class _PlacementScreenState extends State<PlacementScreen> {
         ),
         actions: [
           Tombol3D(
-            teks: 'AYO MAIN! 🚀',
+            teks: 'AYO MAIN!',
+            ikon: Icons.play_arrow_rounded,
             warna: const Color(0xFF10B981),
             onTekan: () => Navigator.pop(c),
           ),
@@ -231,7 +232,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
                 )
               else
                 TombolBesar(
-                  teks: _nomor < 4 ? 'SOAL BERIKUTNYA ➔' : 'LIHAT HASIL PENEMPATAN 🏆',
+                  teks: _nomor < 4 ? 'SOAL BERIKUTNYA' : 'LIHAT HASIL PENEMPATAN',
                   warna: const Color(0xFF10B981),
                   onTekan: _lanjut,
                 ),

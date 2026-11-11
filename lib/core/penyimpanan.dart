@@ -11,7 +11,7 @@ class Data {
 
   // ---- Profil ----
   static String nama = '';
-  static String avatar = '🐱';
+  static String avatar = 'milo';
 
   // ---- Progres ----
   static int levelSekarang = 1; // level tertinggi yang terbuka (1-8)
@@ -42,7 +42,7 @@ class Data {
     // Muat semua data dari penyimpanan ke variabel statis
     nama = _prefs.getString('nama') ?? '';
     // kalau belum ada nama, pakai string kosong
-    avatar = _prefs.getString('avatar') ?? '🐱';
+    avatar = _prefs.getString('avatar') ?? 'milo';
     // kalau belum ada avatar, pakai emoji kucing
     levelSekarang = _prefs.getInt('levelSekarang') ?? 1;
     // kalau belum ada levelSekarang, pakai 1

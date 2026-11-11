@@ -167,7 +167,7 @@ class _BicaraAiGameState extends State<BicaraAiGame> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text('Kemajuan Pengucapan:', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                  Text('$_benar / 5 🎤', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: warnaUtama)),
+                  Text('$_benar / 5', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: warnaUtama)),
                 ],
               ),
             ),
@@ -238,7 +238,7 @@ class _BicaraAiGameState extends State<BicaraAiGame> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(color: Colors.orange.shade50, borderRadius: BorderRadius.circular(16)),
-                child: const Text('Mikrofon tidak terdeteksi di perangkat ini. Gunakan kolom ketik di bawah ya! ⌨️',
+                child: const Text('Mikrofon tidak terdeteksi di perangkat ini. Gunakan kolom ketik di bawah ya!',
                     textAlign: TextAlign.center, style: TextStyle(color: Colors.deepOrange)),
               ),
 
@@ -253,7 +253,7 @@ class _BicaraAiGameState extends State<BicaraAiGame> {
 
             // Umpan balik & Tombol Lanjut
             if (_hasil == 'benar') ...[
-              TombolBesar(teks: 'KATA BERIKUTNYA ➔', warna: const Color(0xFF10B981), onTekan: _kataBerikutnya),
+              TombolBesar(teks: 'KATA BERIKUTNYA', warna: const Color(0xFF10B981), onTekan: _kataBerikutnya),
             ],
             if (_bolehLewati)
               Padding(

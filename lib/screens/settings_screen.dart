@@ -111,7 +111,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Total XP: ${Data.xp} ⭐ · Tingkat ${Data.levelSekarang}',
+                        'Total XP: ${Data.xp} XP · Tingkat ${Data.levelSekarang}',
                         style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
                       ),
                     ],
@@ -220,7 +220,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   title: const Text('Uji Text-To-Speech (TTS)', style: TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text('Mesin: ${Suara.namaSuara} (${Suara.indonesiaTersedia ? "Bahasa Indonesia Aktif ✅" : "Masih Logat Asing ⚠️"})'),
+                  subtitle: Text('Mesin: ${Suara.namaSuara} (${Suara.indonesiaTersedia ? "Bahasa Indonesia Aktif" : "Masih Logat Asing"})'),
                   trailing: const Icon(Icons.play_circle_fill_rounded, color: Color(0xFF06B6D4), size: 36),
                   onTap: () => Suara.ucap('Halo! Ayo belajar membaca bersama DyLeks. Bunga, nyanyi, makan.'),
                 ),
@@ -265,7 +265,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     behavior: SnackBarBehavior.floating,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     backgroundColor: const Color(0xFF10B981),
-                    content: const Text('Mode Demo Aktif: Seluruh Tingkat 1–8 berhasil dibuka! 🔓',
+                    content: const Text('Mode Demo Aktif: Seluruh Tingkat 1–8 berhasil dibuka!',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 );

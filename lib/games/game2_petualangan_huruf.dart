@@ -118,7 +118,7 @@ class _PetualanganHurufGameState extends State<PetualanganHurufGame> {
               children: [
                 const Text('Pasangan Ditemukan:', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(
-                  '$jumlahCocok / $_jumlahPasangan 🃏',
+                  '$jumlahCocok / $_jumlahPasangan',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: warnaUtama),
                 ),
               ],

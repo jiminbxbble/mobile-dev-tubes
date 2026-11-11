@@ -13,16 +13,24 @@ import 'stage_map_screen.dart';
 // Misi Harian, dan Pengaturan Aksesibilitas.
 // ===============================================
 
-const Map<String, Map<String, String>> dataLencanaLengkap = {
-  'level1': {'nama': 'Master Vokal', 'ikon': '🔤', 'desc': 'Selesaikan Tingkat 1: Latihan Vokal Tunggal'},
-  'level2': {'nama': 'Ahli Memori', 'ikon': '🃏', 'desc': 'Selesaikan Tingkat 2: Pasangan Huruf & Visual'},
-  'level3': {'nama': 'Penjiplak Handal', 'ikon': '✍️', 'desc': 'Selesaikan Tingkat 3: Tracer Kinestik b/d/p/q'},
-  'level4': {'nama': 'Pahlawan Bicara', 'ikon': '🗣️', 'desc': 'Selesaikan Tingkat 4: Pelafalan Fonem AI'},
-  'level5': {'nama': 'Penjelajah Labirin', 'ikon': '🧭', 'desc': 'Selesaikan Tingkat 5: Labirin Arah Spasial'},
-  'level6': {'nama': 'Pemecah Gelembung', 'ikon': '🎈', 'desc': 'Selesaikan Tingkat 6: Letuskan Balon Suku Kata'},
-  'level7': {'nama': 'Benteng Ejaan', 'ikon': '🛡️', 'desc': 'Selesaikan Tingkat 7: Sight Word Shield'},
-  'level8': {'nama': 'Arsitek Morfem', 'ikon': '🌉', 'desc': 'Selesaikan Tingkat 8: Morpheme Bridge'},
-  'streak': {'nama': 'Setia Belajar', 'ikon': '🔥', 'desc': 'Raih Streak Belajar Berturut-turut'},
+class LencanaDef {
+  final String nama;
+  final IconData ikon;
+  final String desc;
+  final Color warna;
+  const LencanaDef(this.nama, this.ikon, this.desc, this.warna);
+}
+
+const Map<String, LencanaDef> dataLencanaLengkap = {
+  'level1': LencanaDef('Master Vokal', Icons.record_voice_over_rounded, 'Selesaikan Tingkat 1: Latihan Vokal Tunggal', Color(0xFF7C3AED)),
+  'level2': LencanaDef('Ahli Memori', Icons.style_rounded, 'Selesaikan Tingkat 2: Pasangan Huruf & Visual', Color(0xFF10B981)),
+  'level3': LencanaDef('Penjiplak Handal', Icons.draw_rounded, 'Selesaikan Tingkat 3: Tracer Kinestik b/d/p/q', Color(0xFFF59E0B)),
+  'level4': LencanaDef('Pahlawan Bicara', Icons.mic_rounded, 'Selesaikan Tingkat 4: Pelafalan Fonem AI', Color(0xFFF43F5E)),
+  'level5': LencanaDef('Penjelajah Labirin', Icons.explore_rounded, 'Selesaikan Tingkat 5: Labirin Arah Spasial', Color(0xFF06B6D4)),
+  'level6': LencanaDef('Pemecah Gelembung', Icons.bubble_chart_rounded, 'Selesaikan Tingkat 6: Letuskan Balon Suku Kata', Color(0xFF9333EA)),
+  'level7': LencanaDef('Benteng Ejaan', Icons.shield_rounded, 'Selesaikan Tingkat 7: Sight Word Shield', Color(0xFF0D9488)),
+  'level8': LencanaDef('Arsitek Morfem', Icons.account_tree_rounded, 'Selesaikan Tingkat 8: Morpheme Bridge', Color(0xFF4F46E5)),
+  'streak': LencanaDef('Setia Belajar', Icons.local_fire_department_rounded, 'Raih Streak Belajar Berturut-turut', Color(0xFFF59E0B)),
 };
 
 class HomeScreen extends StatefulWidget {
@@ -70,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           backgroundColor: const Color(0xFF1E1B2E),
-          content: Text('Selesaikan Tingkat ${info.nomor - 1} dulu ya! 🔒', style: const TextStyle(fontSize: 15)),
+          content: Text('Selesaikan Tingkat ${info.nomor - 1} dulu ya!', style: const TextStyle(fontSize: 15)),
         ),
       );
       return;
@@ -86,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color(0xFF1E1B2E),
         title: const Row(
           children: [
-            Text('🔥', style: TextStyle(fontSize: 32)),
+            Icon(Icons.local_fire_department_rounded, color: Color(0xFFF59E0B), size: 32),
             SizedBox(width: 8),
             Text('Api Belajar Harian', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           ],
@@ -119,7 +127,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 8),
-            Text('Rekor Terbaik: ${Data.rekorStreak} hari 🏆', style: const TextStyle(color: Colors.white, fontSize: 15)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.emoji_events_rounded, color: Color(0xFFF59E0B), size: 18),
+                const SizedBox(width: 6),
+                Text('Rekor Terbaik: ${Data.rekorStreak} hari', style: const TextStyle(color: Colors.white, fontSize: 15)),
+              ],
+            ),
             if (Data.streak == 0)
               const Padding(
                 padding: EdgeInsets.only(top: 12),
@@ -145,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         title: const Row(
           children: [
-            Text('⭐', style: TextStyle(fontSize: 30)),
+            Icon(Icons.star_rounded, color: Color(0xFFF59E0B), size: 30),
             SizedBox(width: 8),
             Text('Poin Belajar (XP)', style: TextStyle(fontWeight: FontWeight.bold)),
           ],
@@ -171,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         title: const Row(
           children: [
-            Text('❤️', style: TextStyle(fontSize: 30)),
+            Icon(Icons.favorite_rounded, color: Color(0xFFEF4444), size: 30),
             SizedBox(width: 8),
             Text('Energi Belajar', style: TextStyle(fontWeight: FontWeight.bold)),
           ],
@@ -236,7 +251,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
             Tombol3D(
-              teks: 'SAYA MENGERTI ✨',
+              teks: 'SAYA MENGERTI',
+              ikon: Icons.check_circle_rounded,
               warna: const Color(0xFF7C3AED),
               onTekan: () => Navigator.pop(c),
             ),
@@ -253,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         title: const Row(
           children: [
-            Text('🎁', style: TextStyle(fontSize: 32)),
+            Icon(Icons.card_giftcard_rounded, color: Color(0xFFF59E0B), size: 30),
             SizedBox(width: 8),
             Text('Peti Harta Karun!', style: TextStyle(fontWeight: FontWeight.bold)),
           ],
@@ -273,14 +289,22 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 14),
-            const Text('⭐ +15 XP Bonus!', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: Color(0xFFF59E0B))),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.star_rounded, color: Color(0xFFF59E0B), size: 28),
+                SizedBox(width: 6),
+                Text('+15 XP Bonus!', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: Color(0xFFF59E0B))),
+              ],
+            ),
             const SizedBox(height: 6),
             const Text('Selamat! Kamu telah mencapai separuh perjalanan petualangan membaca.', textAlign: TextAlign.center),
           ],
         ),
         actions: [
           Tombol3D(
-            teks: 'AMBIL HADIAH! 🎉',
+            teks: 'AMBIL HADIAH',
+            ikon: Icons.redeem_rounded,
             warna: const Color(0xFF10B981),
             onTekan: () {
               Data.xp += 15;
@@ -429,9 +453,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.asset('assets/images/chest_gold_3d.jpg', width: 34, height: 34, fit: BoxFit.cover),
+                          Image.asset(
+                            'assets/images/chest_gold_3d.jpg',
+                            width: 38,
+                            height: 38,
+                            fit: BoxFit.contain,
                           ),
                           const SizedBox(width: 10),
                           const Text(
@@ -512,7 +538,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       // BATU LONCATAN 3D
                       BatuLoncatan3D(
                         nomor: info.nomor,
-                        ikon: info.ikon,
+                        ikonData: info.ikon,
                         status: status,
                         warna: warnaLevel,
                         onTekan: () => _ketukLevel(info),
@@ -537,7 +563,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         const Row(
           children: [
-            Text('🏆', style: TextStyle(fontSize: 28)),
+            Icon(Icons.emoji_events_rounded, color: Color(0xFFF59E0B), size: 30),
             SizedBox(width: 10),
             Text('Koleksi Lencana Juara', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: Color(0xFF1E1B2E))),
           ],
@@ -554,6 +580,7 @@ class _HomeScreenState extends State<HomeScreen> {
           childAspectRatio: 0.85,
           children: dataLencanaLengkap.entries.map((e) {
             final bool terbuka = Data.lencana.contains(e.key);
+            final lencana = e.value;
             return GestureDetector(
               onTap: () {
                 showDialog(
@@ -562,16 +589,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                     title: Row(
                       children: [
-                        Text(e.value['ikon']!, style: const TextStyle(fontSize: 32)),
-                        const SizedBox(width: 8),
-                        Expanded(child: Text(e.value['nama']!, style: const TextStyle(fontWeight: FontWeight.bold))),
+                        Icon(lencana.ikon, color: lencana.warna, size: 32),
+                        const SizedBox(width: 10),
+                        Expanded(child: Text(lencana.nama, style: const TextStyle(fontWeight: FontWeight.bold))),
                       ],
                     ),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(e.value['desc']!, style: const TextStyle(fontSize: 15)),
+                        Text(lencana.desc, style: const TextStyle(fontSize: 15)),
                         const SizedBox(height: 12),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -579,12 +606,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: terbuka ? const Color(0xFF10B981).withValues(alpha: 0.15) : Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Text(
-                            terbuka ? '✅ Sudah Terbuka' : '🔒 Masih Terkunci',
-                            style: TextStyle(
-                              color: terbuka ? const Color(0xFF059669) : Colors.grey.shade700,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                terbuka ? Icons.check_circle_rounded : Icons.lock_rounded,
+                                size: 16,
+                                color: terbuka ? const Color(0xFF059669) : Colors.grey.shade700,
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                terbuka ? 'Sudah Terbuka' : 'Masih Terkunci',
+                                style: TextStyle(
+                                  color: terbuka ? const Color(0xFF059669) : Colors.grey.shade700,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -613,10 +651,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(terbuka ? e.value['ikon']! : '🔒', style: const TextStyle(fontSize: 34)),
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: terbuka ? lencana.warna.withValues(alpha: 0.15) : Colors.grey.shade100,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        terbuka ? lencana.ikon : Icons.lock_rounded,
+                        color: terbuka ? lencana.warna : Colors.grey.shade400,
+                        size: 26,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     Text(
-                      e.value['nama']!,
+                      lencana.nama,
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -645,7 +695,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         const Row(
           children: [
-            Text('🎯', style: TextStyle(fontSize: 28)),
+            Icon(Icons.flag_rounded, color: Color(0xFF7C3AED), size: 30),
             SizedBox(width: 10),
             Text('Misi Petualangan Hari Ini', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: Color(0xFF1E1B2E))),
           ],
@@ -709,12 +759,17 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: const Color(0xFF7C3AED).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(14),
                 ),
-                child: const Text('🎁', style: TextStyle(fontSize: 24)),
+                child: Image.asset(
+                  'assets/images/chest_gold_3d.jpg',
+                  width: 32,
+                  height: 32,
+                  fit: BoxFit.contain,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(

@@ -118,7 +118,7 @@ class _MorphemeBridgeGameState extends State<MorphemeBridgeGame> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('Jembatan Dibangun:', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                Text('${_kataKe + 1} / 5 🌉', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: warnaUtama)),
+                Text('${_kataKe + 1} / 5', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: warnaUtama)),
               ],
             ),
           ),
@@ -191,7 +191,16 @@ class _MorphemeBridgeGameState extends State<MorphemeBridgeGame> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                const Text('🌉 ══════════════ 🌉', style: TextStyle(fontSize: 20, color: Colors.blueGrey)),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.horizontal_rule_rounded, color: Colors.blueGrey),
+                    SizedBox(width: 6),
+                    Text('Jalur Balok Jembatan', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, fontSize: 13)),
+                    SizedBox(width: 6),
+                    Icon(Icons.horizontal_rule_rounded, color: Colors.blueGrey),
+                  ],
+                ),
               ],
             ),
           ),

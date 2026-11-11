@@ -177,7 +177,7 @@ class _LatihanBertahapGameState extends State<LatihanBertahapGame> {
             )
           else
             TombolBesar(
-              teks: _nomor < _jumlahSoal ? 'LANJUTKAN ➔' : 'SELESAIKAN TAHAP ✨',
+              teks: _nomor < _jumlahSoal ? 'LANJUTKAN' : 'SELESAIKAN TAHAP',
               warna: const Color(0xFF10B981),
               onTekan: _lanjut,
             ),

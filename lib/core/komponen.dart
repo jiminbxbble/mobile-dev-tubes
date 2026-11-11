@@ -365,21 +365,21 @@ class HeaderGamifikasi extends StatelessWidget {
             ),
           // STREAK API
           _kapsul(
-            ikon: '🔥',
+            ikon: Icons.local_fire_department_rounded,
             nilai: '$streak',
             warna: const Color(0xFFF59E0B),
             onTekan: onStreak,
           ),
           // XP EMAS
           _kapsul(
-            ikon: '⭐',
+            ikon: Icons.star_rounded,
             nilai: '$xp XP',
-            warna: const Color(0xFF7C3AED),
+            warna: const Color(0xFFF59E0B),
             onTekan: onXp,
           ),
           // NYAWA MERAH
           _kapsul(
-            ikon: '❤️',
+            ikon: Icons.favorite_rounded,
             nilai: '$nyawa',
             warna: const Color(0xFFEF4444),
             onTekan: onLencana,
@@ -389,7 +389,7 @@ class HeaderGamifikasi extends StatelessWidget {
     );
   }
 
-  Widget _kapsul({required String ikon, required String nilai, required Color warna, VoidCallback? onTekan}) {
+  Widget _kapsul({required IconData ikon, required String nilai, required Color warna, VoidCallback? onTekan}) {
     return InkWell(
       onTap: onTekan,
       borderRadius: BorderRadius.circular(16),
@@ -403,7 +403,7 @@ class HeaderGamifikasi extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(ikon, style: const TextStyle(fontSize: 17)),
+            Icon(ikon, color: warna, size: 20),
             const SizedBox(width: 6),
             Text(
               nilai,
@@ -418,7 +418,7 @@ class HeaderGamifikasi extends StatelessWidget {
 
 // KapsulStat lama (untuk kompatibilitas)
 class KapsulStat extends StatelessWidget {
-  final String ikon;
+  final IconData ikon;
   final String label;
   final Color warnaAksen;
   final VoidCallback? onTekan;
@@ -446,7 +446,7 @@ class KapsulStat extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(ikon, style: const TextStyle(fontSize: 17)),
+            Icon(ikon, color: warnaAksen, size: 20),
             const SizedBox(width: 6),
             Text(
               label,
@@ -469,7 +469,8 @@ class KapsulStat extends StatelessWidget {
 // ===============================================
 class BatuLoncatan3D extends StatefulWidget {
   final int nomor;
-  final String ikon;
+  final IconData? ikonData;
+  final String? ikon;
   final String status; // 'selesai', 'aktif', 'terkunci'
   final Color warna;
   final VoidCallback onTekan;
@@ -479,7 +480,8 @@ class BatuLoncatan3D extends StatefulWidget {
   const BatuLoncatan3D({
     super.key,
     required this.nomor,
-    required this.ikon,
+    this.ikonData,
+    this.ikon,
     required this.status,
     required this.warna,
     required this.onTekan,
@@ -580,16 +582,23 @@ class _BatuLoncatan3DState extends State<BatuLoncatan3D> {
                   ? const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('👑', style: TextStyle(fontSize: 28)),
-                        Icon(Icons.check_rounded, color: Colors.white, size: 20),
+                        Icon(Icons.workspace_premium_rounded, color: Colors.white, size: 30),
+                        Icon(Icons.check_rounded, color: Colors.white, size: 16),
                       ],
                     )
                   : (isAktif
-                      ? Text(
-                          widget.ikon,
-                          style: const TextStyle(fontSize: 32),
-                        )
-                      : const Icon(Icons.lock_rounded, color: Colors.grey, size: 30)),
+                      ? (widget.ikonData != null
+                          ? Icon(widget.ikonData, color: Colors.white, size: 34)
+                          : (widget.ikon != null && widget.ikon!.isNotEmpty
+                              ? Text(
+                                  widget.ikon!,
+                                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                                )
+                              : Text(
+                                  '${widget.nomor}',
+                                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900, color: Colors.white),
+                                )))
+                      : const Icon(Icons.lock_rounded, color: Color(0xFF9CA3AF), size: 30)),
             ),
           ),
         ),
@@ -699,7 +708,7 @@ class LayarGame extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         title: const Row(
           children: [
-            Text('🚪', style: TextStyle(fontSize: 28)),
+            Icon(Icons.logout_rounded, color: Color(0xFFEF4444), size: 28),
             SizedBox(width: 8),
             Text('Keluar tahap?', style: TextStyle(fontWeight: FontWeight.bold)),
           ],
@@ -754,7 +763,7 @@ class LayarGame extends StatelessWidget {
               padding: const EdgeInsets.only(right: 16),
               child: Row(
                 children: [
-                  const Text('❤️', style: TextStyle(fontSize: 18)),
+                  const Icon(Icons.favorite_rounded, color: Color(0xFFEF4444), size: 18),
                   const SizedBox(width: 4),
                   Text('$nyawa', style: const TextStyle(fontWeight: FontWeight.w900, color: Color(0xFFEF4444), fontSize: 16)),
                 ],
@@ -827,7 +836,7 @@ Future<bool> tawarkanBantuan(BuildContext context) async {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       title: const Row(
         children: [
-          Text('🤝', style: TextStyle(fontSize: 28)),
+          Icon(Icons.handshake_rounded, color: Color(0xFF7C3AED), size: 28),
           SizedBox(width: 8),
           Expanded(child: Text('Mau bantuan sedikit?', style: TextStyle(fontWeight: FontWeight.bold))),
         ],
@@ -847,7 +856,7 @@ Future<bool> tawarkanBantuan(BuildContext context) async {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           ),
           onPressed: () => Navigator.pop(c, true),
-          child: const Text('Bantu Aku! ✨'),
+          child: const Text('Bantu Aku'),
         ),
       ],
     ),
@@ -876,7 +885,7 @@ void tampilUmpanBalik(BuildContext context, bool benar) {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              benar ? 'Luar biasa! Benar! 🎉' : 'Yuk coba lagi, kamu pasti bisa! 💪',
+              benar ? 'Luar biasa! Jawabanmu tepat!' : 'Yuk coba lagi, kamu pasti bisa!',
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ),

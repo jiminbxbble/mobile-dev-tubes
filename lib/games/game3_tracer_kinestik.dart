@@ -211,7 +211,7 @@ class _TracerKinestikGameState extends State<TracerKinestikGame> {
           ),
           const SizedBox(height: 4),
           Text(
-            'Mulai dari titik hijau 🟢 dan ikuti ke titik oranye 🟠 tanpa melepas jari!',
+            'Mulai dari titik hijau dan ikuti ke titik oranye tanpa melepas jari!',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
           ),
