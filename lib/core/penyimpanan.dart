@@ -27,7 +27,7 @@ class Data {
 
   // ---- Pengaturan ----
   static bool temaGelap = false;
-  static double ukuranTeks = 1.0; // 1.0 / 1.15 / 1.25
+  static double ukuranTeks = 1.0; // 1.0 = normal, 1.2 = besar, 1.4 = ekstra besar
 
   // Penghitung gagal beruntun per tahap (untuk mode bantuan).
   // Tidak disimpan permanen supaya sederhana.
@@ -35,14 +35,21 @@ class Data {
 
   static bool get sudahDaftar => nama.isNotEmpty;
 
-  // Dipanggil sekali di main() sebelum app jalan
+  // gunanya adalah untuk memanggil SharedPreferences.getInstance() sekali saja saat app dibuka
   static Future<void> muat() async {
+    // SharedPreferences.getInstance() itu async, jadi harus pakai await
     _prefs = await SharedPreferences.getInstance();
+    // Muat semua data dari penyimpanan ke variabel statis
     nama = _prefs.getString('nama') ?? '';
+    // kalau belum ada nama, pakai string kosong
     avatar = _prefs.getString('avatar') ?? '🐱';
+    // kalau belum ada avatar, pakai emoji kucing
     levelSekarang = _prefs.getInt('levelSekarang') ?? 1;
+    // kalau belum ada levelSekarang, pakai 1
     final tahap = _prefs.getStringList('tahapSelesai');
+    // kalau belum ada tahapSelesai, pakai List.filled(8, 0)
     tahapSelesai = tahap == null ? List.filled(8, 0) : tahap.map(int.parse).toList();
+    // kalau ada, ubah dari List<String> ke List<int>
     xp = _prefs.getInt('xp') ?? 0;
     streak = _prefs.getInt('streak') ?? 0;
     rekorStreak = _prefs.getInt('rekorStreak') ?? 0;
@@ -52,12 +59,17 @@ class Data {
     ukuranTeks = _prefs.getDouble('ukuranTeks') ?? 1.0;
     cekStreakPadam();
   }
-
+// Dipanggil saat app ditutup atau data berubah
   static Future<void> simpan() async {
+    // ini gunanya untuk menyimpan semua variabel statis ke penyimpanan permanen
     await _prefs.setString('nama', nama);
+    // kalau nama kosong, akan disimpan string kosong
     await _prefs.setString('avatar', avatar);
+    // ini gunanya untuk menyimpan semua variabel statis ke penyimpanan permanen
     await _prefs.setInt('levelSekarang', levelSekarang);
+    // ini gunanya untuk menyimpan semua variabel statis ke penyimpanan permanen
     await _prefs.setStringList('tahapSelesai', tahapSelesai.map((e) => '$e').toList());
+    // ini kode untuk mengubah List<int> ke List<String> sebelum disimpan
     await _prefs.setInt('xp', xp);
     await _prefs.setInt('streak', streak);
     await _prefs.setInt('rekorStreak', rekorStreak);
@@ -67,13 +79,16 @@ class Data {
     await _prefs.setDouble('ukuranTeks', ukuranTeks);
   }
 
+  // kode untuk menghapus semua data (dipakai saat reset)
   static Future<void> hapusSemua() async {
     await _prefs.clear();
     await muat();
   }
+  // maka yang terjadi adalah method ini tidak bisa dipanggil tanpa membuat instance dari class Data, sehingga akan sulit untuk menghapus semua data secara global. Dengan tetap menggunakan static, kita bisa memanggil Data.hapusSemua() dari mana saja tanpa harus membuat objek Data baru.
 
   // ---------- Tanggal ----------
   static String _tanggal(DateTime t) => '${t.year}-${t.month}-${t.day}';
+  // Gunanya adalah untuk menyimpan tanggal dalam format "YYYY-M-D" tanpa jam, menit, detik. Ini memudahkan perbandingan tanggal.
   static String get hariIni => _tanggal(DateTime.now());
   static String get kemarin => _tanggal(DateTime.now().subtract(const Duration(days: 1)));
 

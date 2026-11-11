@@ -15,14 +15,14 @@ class InfoLevel {
 }
 
 const List<InfoLevel> daftarLevel = [
-  InfoLevel(1, 'Vokal Tunggal', 'Latihan Bertahap', '🔤', 0xFF4F46E5),
-  InfoLevel(2, 'Suku Kata Tunggal', 'Petualangan Huruf', '🃏', 0xFF10B981),
-  InfoLevel(3, 'Suku Kata Kompleks', 'Tracer Kinestik', '✍️', 0xFFF59E0B),
-  InfoLevel(4, 'Digraf & Diftong', 'Bicara AI', '🎤', 0xFFF43F5E),
-  InfoLevel(5, 'Kata Dasar', 'Labirin Spasial', '🧭', 0xFF06B6D4),
-  InfoLevel(6, 'Suku Kata Blending', 'Letuskan Balon', '🎈', 0xFF9333EA),
-  InfoLevel(7, 'Diskriminasi Visual', 'Sight Word Shield', '🛡️', 0xFF14B8A6),
-  InfoLevel(8, 'Morfologi Kata', 'Morpheme Bridge', '🌉', 0xFF3B82F6),
+  InfoLevel(1, 'Vokal Tunggal', 'Latihan Bertahap', '🔤', 0xFF7C3AED), // Ungu Duolingo Core
+  InfoLevel(2, 'Suku Kata Tunggal', 'Petualangan Huruf', '🃏', 0xFF10B981), // Emerald Mint
+  InfoLevel(3, 'Suku Kata Kompleks', 'Tracer Kinestik', '✍️', 0xFFF59E0B), // Amber Gold
+  InfoLevel(4, 'Digraf & Diftong', 'Bicara AI', '🎤', 0xFFF43F5E), // Coral Rose
+  InfoLevel(5, 'Kata Dasar', 'Labirin Spasial', '🧭', 0xFF06B6D4), // Electric Cyan
+  InfoLevel(6, 'Suku Kata Blending', 'Letuskan Balon', '🎈', 0xFF9333EA), // Purple Violet
+  InfoLevel(7, 'Diskriminasi Visual', 'Sight Word Shield', '🛡️', 0xFF0D9488), // Teal Shield
+  InfoLevel(8, 'Morfologi Kata', 'Morpheme Bridge', '🌉', 0xFF4F46E5), // Indigo Blue
 ];
 
 // Pool materi per level
@@ -44,6 +44,7 @@ const Map<String, List<String>> pecahanSukuKata = {
   'BELI': ['BE', 'LI'],
 };
 
+// Pool kata untuk Morpheme Bridge
 const List<String> sukuKataPengecoh = [
   'DA', 'TO', 'PA', 'TA', 'SI', 'LU', 'RO', 'PI', 'NA', 'JA', 'BO', 'NE',
   'KE', 'RE', 'DE', 'PE', 'GE', 'ME', 'TI', 'GA', 'RU', 'KI', 'HA', 'NO',
@@ -57,6 +58,7 @@ class SoalJembatan {
   const SoalJembatan(this.kata, this.potongan, this.pengecoh);
 }
 
+// Pool soal Morpheme Bridge (level 8)
 const List<SoalJembatan> poolJembatan = [
   SoalJembatan('menulis', ['me', 'nu', 'lis'], ['ber', 'kan']),
   SoalJembatan('berlari', ['ber', 'la', 'ri'], ['me', 'an']),

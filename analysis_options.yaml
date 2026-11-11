@@ -1,0 +1,8 @@
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - windows/**
+    - web/**
+    - distribusi/**
+include: package:flutter_lints/flutter.yaml

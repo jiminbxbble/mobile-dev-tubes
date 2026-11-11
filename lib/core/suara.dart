@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter_tts/flutter_tts.dart'; //gunanya untuk Text To Speech (TTS) bahasa Indonesia
 
 // ===============================================
 // SUARA (Text To Speech bahasa Indonesia)
@@ -9,6 +9,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 // berbahasa Indonesia di perangkat, lalu memakainya.
 // Kalau perangkat tidak punya suara Indonesia, suaranya pasti logat Inggris
 // -> lihat pesan di Pengaturan > "Tes Suara".
+// cara pakai: Suara.siapkan() dipanggil sekali saat app dibuka, lalu Suara.ucap(teks) dipanggil kapan saja.
 // ===============================================
 
 class Suara {
@@ -24,9 +25,9 @@ class Suara {
   };
 
   // true kalau locale/nama suara menunjukkan bahasa Indonesia
-  static bool _apakahIndonesia(Map suara) {
-    final locale = '${suara['locale']}'.toLowerCase().replaceAll('_', '-');
-    final nama = '${suara['name']}'.toLowerCase();
+  static bool _apakahIndonesia(Map suara) { // gunnya untuk memeriksa apakah suara yang tersedia di perangkat adalah bahasa Indonesia
+    final locale = '${suara['locale']}'.toLowerCase().replaceAll('_', '-'); // gunanya untuk mengubah locale dari format "id_ID" menjadi "id-ID" supaya lebih mudah dibandingkan
+    final nama = '${suara['name']}'.toLowerCase(); // gunanya untuk memeriksa nama suara, misal "Google Bahasa Indonesia" atau "Microsoft Gadis"
     return locale.startsWith('id') || // id-ID (standar baru)
         locale.startsWith('in-') || // in-ID (kode lama Android)
         nama.contains('indonesia') || // "Google Bahasa Indonesia", "Microsoft Gadis"
@@ -86,7 +87,9 @@ class Suara {
     } catch (_) {}
   }
 
-  static Future<void> ucap(String teks) async {
+  // Panggil ini untuk mengucapkan teks. Teks akan diubah ke huruf kecil dan dipangkas spasi.
+  // Kalau ada kata yang perlu pelafalan khusus, tambahkan di _pelafalan
+  static Future<void> ucap(String teks) async { // dipanggil dari game untuk mengucapkan teks, misal ucap('ba') atau ucap('main')
     final kata = teks.toLowerCase().trim();
     try {
       await _tts.stop();

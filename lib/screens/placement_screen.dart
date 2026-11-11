@@ -5,7 +5,8 @@ import '../core/suara.dart';
 import 'home_screen.dart';
 
 // ===============================================
-// TES PENEMPATAN: 5 soal -> menentukan level awal (1, 3, atau 6)
+// TES PENEMPATAN (GAYA KUIS DUOLINGO)
+// 5 soal penentu tingkat awal (1, 3, atau 6).
 // ===============================================
 
 class SoalTes {
@@ -17,11 +18,11 @@ class SoalTes {
 }
 
 const List<SoalTes> soalTes = [
-  SoalTes('Dengarkan, lalu pilih yang benar', 'U', ['A', 'I', 'U', 'E', 'O'], 'U'),
-  SoalTes('Dengarkan, lalu pilih yang benar', 'BA', ['BO', 'BI', 'BA', 'BU', 'BE'], 'BA'),
-  SoalTes('Dengarkan, lalu pilih yang benar', 'SING', ['SINK', 'SING', 'SHING', 'TING', 'PING'], 'SING'),
-  SoalTes('Dengarkan, lalu pilih yang benar', 'NYANYI', ['NANYI', 'NYANYI', 'NANI', 'YANYI', 'MAMI'], 'NYANYI'),
-  SoalTes('Pilih ejaan yang benar dari "MAKAN"', null, ['MAKNA', 'MAKAN', 'KAMAN', 'AMKAN', 'MANAK'], 'MAKAN'),
+  SoalTes('Dengarkan bunyinya, lalu pilih huruf yang benar!', 'U', ['A', 'I', 'U', 'E', 'O'], 'U'),
+  SoalTes('Dengarkan suku katanya, lalu pilih yang tepat!', 'BA', ['BO', 'BI', 'BA', 'BU', 'BE'], 'BA'),
+  SoalTes('Dengarkan bunyinya, temukan kata yang sesuai!', 'SING', ['SINK', 'SING', 'SHING', 'TING', 'PING'], 'SING'),
+  SoalTes('Dengarkan baik-baik, pilih kata yang tepat!', 'NYANYI', ['NANYI', 'NYANYI', 'NANI', 'YANYI', 'MAMI'], 'NYANYI'),
+  SoalTes('Pilih ejaan yang benar untuk kata "MAKAN"', null, ['MAKNA', 'MAKAN', 'KAMAN', 'AMKAN', 'MANAK'], 'MAKAN'),
 ];
 
 class PlacementScreen extends StatefulWidget {
@@ -54,7 +55,12 @@ class _PlacementScreenState extends State<PlacementScreen> {
   void _periksa() {
     setState(() {
       _sudahDiperiksa = true;
-      if (_pilihan == soalTes[_nomor].jawaban) _benar++;
+      if (_pilihan == soalTes[_nomor].jawaban) {
+        _benar++;
+        tampilUmpanBalik(context, true);
+      } else {
+        tampilUmpanBalik(context, false);
+      }
     });
   }
 
@@ -85,10 +91,53 @@ class _PlacementScreenState extends State<PlacementScreen> {
 
     await showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (c) => AlertDialog(
-        title: const Text('Hasil Tes 🎉'),
-        content: Text('Kamu mulai dari Tingkat ${Data.levelSekarang}!', style: const TextStyle(fontSize: 20)),
-        actions: [FilledButton(onPressed: () => Navigator.pop(c), child: const Text('Ayo main!'))],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: const Row(
+          children: [
+            Text('🏆', style: TextStyle(fontSize: 32)),
+            SizedBox(width: 8),
+            Text('Hasil Tes Penempatan', style: TextStyle(fontWeight: FontWeight.bold)),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF7C3AED).withValues(alpha: 0.12),
+                shape: BoxShape.circle,
+              ),
+              child: const Text('✨', style: TextStyle(fontSize: 40)),
+            ),
+            const SizedBox(height: 14),
+            Text(
+              'Jawaban Benar: $skor / ${soalTes.length}',
+              style: const TextStyle(fontSize: 18, color: Colors.grey),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Kamu mulai di Tingkat ${Data.levelSekarang}!',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF7C3AED)),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Materi telah disesuaikan agar kamu bisa belajar dengan nyaman!',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 14, color: Colors.black87),
+            ),
+          ],
+        ),
+        actions: [
+          Tombol3D(
+            teks: 'AYO MAIN! 🚀',
+            warna: const Color(0xFF10B981),
+            onTekan: () => Navigator.pop(c),
+          ),
+        ],
       ),
     );
     if (!mounted) return;
@@ -99,65 +148,92 @@ class _PlacementScreenState extends State<PlacementScreen> {
     );
   }
 
-  Color _warnaOpsi(String opsi) {
-    if (!_sudahDiperiksa) return opsi == _pilihan ? Colors.indigo.shade100 : Colors.white;
-    if (opsi == soalTes[_nomor].jawaban) return Colors.green.shade200;
-    if (opsi == _pilihan) return Colors.red.shade200;
-    return Colors.white;
-  }
 
   @override
   Widget build(BuildContext context) {
     final soal = soalTes[_nomor];
+    final bool bisaPeriksa = _pilihan != null && !_sudahDiperiksa;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Tes Penempatan ${_nomor + 1}/5')),
+      backgroundColor: const Color(0xFFFAF8FD),
+      appBar: AppBar(
+        title: Text(
+          'Tes Penempatan · Soal ${_nomor + 1} dari 5',
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Color(0xFF1E1B2E)),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(8),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                value: (_nomor + 1) / 5,
+                minHeight: 8,
+                backgroundColor: Colors.purple.shade50,
+                color: const Color(0xFF7C3AED),
+              ),
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              LinearProgressIndicator(value: (_nomor + 1) / 5),
-              const SizedBox(height: 24),
-              Text(soal.pertanyaan, textAlign: TextAlign.center, style: const TextStyle(fontSize: 20)),
               const SizedBox(height: 12),
+              Text(
+                soal.pertanyaan,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF1E1B2E)),
+              ),
+              const SizedBox(height: 16),
               if (soal.didengar != null)
                 Center(
-                  child: FilledButton.icon(
-                    onPressed: () => Suara.ucap(soal.didengar!),
-                    icon: const Icon(Icons.volume_up),
-                    label: const Text('Dengarkan Lagi'),
-                  ),
+                  child: TombolSuara(teks: soal.didengar!, ukuran: 56),
                 ),
-              const SizedBox(height: 16),
-              // Daftar opsi jawaban
-              ...soal.opsi.map((opsi) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Material(
-                      color: _warnaOpsi(opsi),
-                      borderRadius: BorderRadius.circular(12),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(12),
-                        onTap: _sudahDiperiksa ? null : () => setState(() => _pilihan = opsi),
-                        child: Padding(
-                          padding: const EdgeInsets.all(14),
-                          child: Text(opsi,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(fontSize: 22, color: Colors.black, fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                    ),
-                  )),
-              const Spacer(),
+              const SizedBox(height: 20),
+
+              // Daftar Opsi Jawaban 3D
+              Expanded(
+                child: ListView(
+                  children: soal.opsi.map((opsi) {
+                    final bool terpilih = opsi == _pilihan;
+                    StatusKartu status = StatusKartu.normal;
+                    if (!_sudahDiperiksa) {
+                      status = terpilih ? StatusKartu.terpilih : StatusKartu.normal;
+                    } else {
+                      if (opsi == soal.jawaban) {
+                        status = StatusKartu.benar;
+                      } else if (terpilih) {
+                        status = StatusKartu.salah;
+                      }
+                    }
+
+                    return KartuTaktil(
+                      teks: opsi,
+                      status: status,
+                      ukuranFont: 24,
+                      onTekan: _sudahDiperiksa ? null : () => setState(() => _pilihan = opsi),
+                    );
+                  }).toList(),
+                ),
+              ),
+
+              // Tombol Aksi Bawah
               if (!_sudahDiperiksa)
-                TombolBesar(teks: 'PERIKSA', onTekan: _pilihan == null ? null : _periksa)
+                TombolBesar(
+                  teks: 'PERIKSA JAWABAN',
+                  warna: const Color(0xFF7C3AED),
+                  onTekan: bisaPeriksa ? _periksa : null,
+                )
               else
-                TombolBesar(teks: 'LANJUT', onTekan: _lanjut, warna: Colors.green),
-              if (widget.dariOnboarding && _nomor == 0 && !_sudahDiperiksa)
-                TextButton(
-                  onPressed: () => _selesai(0),
-                  child: const Text('Lewati, mulai dari Tingkat 1'),
+                TombolBesar(
+                  teks: _nomor < 4 ? 'SOAL BERIKUTNYA ➔' : 'LIHAT HASIL PENEMPATAN 🏆',
+                  warna: const Color(0xFF10B981),
+                  onTekan: _lanjut,
                 ),
             ],
           ),
